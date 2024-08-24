@@ -15,7 +15,7 @@ contract Controller is Ownable {
 
 	//--------------------------------------------------------------
 
-	mapping(address => string) public birthCertificate;
+	mapping(address => string) public birthProof;
 
 	struct Training {
 		uint256 id;
@@ -24,7 +24,7 @@ contract Controller is Ownable {
 	Training[] public trainings;
 	uint256 public lastTrainingID = 0;
 
-	mapping(address => uint256[]) public performed;
+	mapping(address => uint256[]) public approved;
 
 	//--------------------------------------------------------------
 
@@ -47,7 +47,7 @@ contract Controller is Ownable {
 
 	//--------------------------------------------------------------
 
-	function addTraining(string calldata name) external {
+	function addTraining(string calldata name) public {
 		uint256 id = lastTrainingID++;
 		trainings.push(Training({ id: id, name: name }));
 		emit NewTraining(id, name);
@@ -55,18 +55,23 @@ contract Controller is Ownable {
 
 	//--------------------------------------------------------------
 
-	function addWoman(address wallet, string calldata proof) external {
-		birthCertificate[wallet] = proof;
+	function addWoman(address wallet, string calldata proof) public {
+		birthProof[wallet] = proof;
 		emit NewWoman(wallet);
 	}
 
 	//--------------------------------------------------------------
 
-	function withdraw(uint256 _amount) external {
+	function approvedTraining(address wallet, uint256 id) public {
+		approved[wallet].push(id);
+	}
+
+	//--------------------------------------------------------------
+
+	function withdraw(uint256 _amount) public {
 		require(address(this).balance >= _amount, "Insufficient balance");
 
 		payable(msg.sender).transfer(_amount);
-		// msg.sender.call{ value: amount }("");
 
 		emit Withdrawal(msg.sender, _amount);
 	}
