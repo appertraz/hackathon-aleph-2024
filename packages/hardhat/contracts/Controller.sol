@@ -4,6 +4,12 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
+//
+//
+// FIXME: Add `onlyOwner` to the necessary functions
+//
+//
+
 contract Controller is Ownable {
 	//--------------------------------------------------------------
 
