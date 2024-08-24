@@ -4,30 +4,25 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-//import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-//import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-
-// withdraw tokens → https://stackoverflow.com/a/73452462/2430102
-
-import "hardhat/console.sol";
-
 contract Controller is Ownable {
 	//--------------------------------------------------------------
 
 	event Deposit(address indexed sender, uint256 amount);
 	event Withdrawal(address indexed receiver, uint256 amount);
+
 	event NewTraining(uint256 id, string name);
+	event NewWoman(address indexed wallet);
 
 	//--------------------------------------------------------------
 
-	mapping(address => bool) public members;
+	mapping(address => string) public birthCertificate;
 
 	struct Training {
 		uint256 id;
 		string name;
 	}
 	Training[] public trainings;
-	uint256 private lastTrainingID = 0;
+	uint256 public lastTrainingID = 0;
 
 	mapping(address => uint256[]) public performed;
 
@@ -52,14 +47,17 @@ contract Controller is Ownable {
 
 	//--------------------------------------------------------------
 
-	function getLastTrainingID() public view onlyOwner returns (uint256) {
-		return lastTrainingID;
-	}
-
 	function addTraining(string calldata name) external {
-		uint256 id = ++lastTrainingID;
+		uint256 id = lastTrainingID++;
 		trainings.push(Training({ id: id, name: name }));
 		emit NewTraining(id, name);
+	}
+
+	//--------------------------------------------------------------
+
+	function addWoman(address wallet, string calldata proof) external {
+		birthCertificate[wallet] = proof;
+		emit NewWoman(wallet);
 	}
 
 	//--------------------------------------------------------------
