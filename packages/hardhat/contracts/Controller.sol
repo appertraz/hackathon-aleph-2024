@@ -13,6 +13,8 @@ contract Controller is Ownable {
 	event NewTraining(uint256 id, string name);
 	event NewWoman(address indexed wallet);
 
+	event ApprovedTraining(address indexed wallet, uint256 id);
+
 	//--------------------------------------------------------------
 
 	mapping(address => string) public birthProof;
@@ -33,6 +35,7 @@ contract Controller is Ownable {
 	//--------------------------------------------------------------
 
 	receive() external payable {
+		require(msg.value > 0, "No funds were sent");
 		emit Deposit(msg.sender, msg.value);
 	}
 
@@ -64,6 +67,7 @@ contract Controller is Ownable {
 
 	function approvedTraining(address wallet, uint256 id) public {
 		approved[wallet].push(id);
+		emit ApprovedTraining(wallet, id);
 	}
 
 	//--------------------------------------------------------------
