@@ -8,7 +8,7 @@ contract Controller is Ownable {
 	//--------------------------------------------------------------
 
 	event Deposit(address indexed sender, uint256 amount);
-	event Withdrawal(address indexed receiver, uint256 amount);
+	event RewardClaimed(address indexed receiver, uint256 reward);
 
 	event NewTraining(uint256 id, string name);
 	event NewWoman(address indexed wallet);
@@ -28,7 +28,12 @@ contract Controller is Ownable {
 
 	mapping(address => uint256[]) public approved;
 
-	uint256 public reward;
+	uint256 public reward = 0.1 * 1e18;
+	uint256 public minTrainingsForReward = 3;
+	uint256 public minTimeForWithdrawal = 30 seconds;
+
+	mapping(address => uint256) public trainingCount;
+	mapping(address => uint256) public trainingTimestamp;
 
 	//--------------------------------------------------------------
 
@@ -52,8 +57,16 @@ contract Controller is Ownable {
 
 	//--------------------------------------------------------------
 
-	function setReward(uint256 _reward) public {
-		reward = _reward;
+	function setReward(uint256 amount) public {
+		reward = amount;
+	}
+
+	function setMinTrainingsForReward(uint256 number) public {
+		minTrainingsForReward = number;
+	}
+
+	function setMinTimeForWithdrawal(uint256 time) public {
+		minTimeForWithdrawal = time;
 	}
 
 	//--------------------------------------------------------------
@@ -75,17 +88,41 @@ contract Controller is Ownable {
 
 	function approvedTraining(address wallet, uint256 id) public {
 		approved[wallet].push(id);
+
+		trainingCount[wallet]++;
+
+		if (trainingCount[wallet] == 1) {
+			trainingTimestamp[wallet] = block.timestamp;
+		}
+
 		emit ApprovedTraining(wallet, id);
 	}
 
 	//--------------------------------------------------------------
 
-	function withdraw(uint256 _amount) public {
-		require(address(this).balance >= _amount, "Insufficient balance");
+	function withdraw() public {
+		address payable receiver = payable(msg.sender);
 
-		payable(msg.sender).transfer(_amount);
+		// Checks
 
-		emit Withdrawal(msg.sender, _amount);
+		require(
+			trainingCount[receiver] >= minTrainingsForReward,
+			"Not enough trainings completed for reward"
+		);
+
+		require(
+			block.timestamp >= trainingTimestamp[receiver] + minTimeForWithdrawal,
+			"Withdrawal time not reached"
+		);
+
+		require(address(this).balance >= reward, "Not enough funds in contract");
+
+		// Transfer
+
+		(bool success, ) = receiver.call{ value: reward }("");
+		require(success, "Transfer failed");
+
+		emit RewardClaimed(receiver, reward);
 	}
 
 	//--------------------------------------------------------------
