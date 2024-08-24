@@ -8,7 +8,7 @@ const deployController: DeployFunction = async function (hre: HardhatRuntimeEnvi
 
   await deploy("Controller", {
     from: deployer,
-    args: [],
+    args: [deployer],
     log: true,
     autoMine: true,
   });

@@ -33,7 +33,7 @@ contract Controller is Ownable {
 
 	//--------------------------------------------------------------
 
-	constructor() Ownable() {}
+	constructor(address initialOwner) Ownable(initialOwner) {}
 
 	//--------------------------------------------------------------
 
@@ -52,9 +52,14 @@ contract Controller is Ownable {
 
 	//--------------------------------------------------------------
 
+	function getLastTrainingID() public view onlyOwner returns (uint256) {
+		return lastTrainingID;
+	}
+
 	function addTraining(string calldata name) external {
-		trainings.push(Training({ id: ++lastTrainingID, name: name }));
-		emit NewTraining(lastTrainingID, name);
+		uint256 id = ++lastTrainingID;
+		trainings.push(Training({ id: id, name: name }));
+		emit NewTraining(id, name);
 	}
 
 	//--------------------------------------------------------------
