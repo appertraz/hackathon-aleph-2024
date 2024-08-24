@@ -28,6 +28,8 @@ contract Controller is Ownable {
 
 	mapping(address => uint256[]) public approved;
 
+	uint256 public reward;
+
 	//--------------------------------------------------------------
 
 	constructor(address initialOwner) Ownable(initialOwner) {}
@@ -46,6 +48,12 @@ contract Controller is Ownable {
 
 	function getBalance() public view returns (uint256) {
 		return address(this).balance;
+	}
+
+	//--------------------------------------------------------------
+
+	function setReward(uint256 _reward) public {
+		reward = _reward;
 	}
 
 	//--------------------------------------------------------------
