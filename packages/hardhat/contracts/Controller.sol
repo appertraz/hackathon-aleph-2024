@@ -16,8 +16,20 @@ contract Controller is Ownable {
 
 	event Deposit(address indexed sender, uint256 amount);
 	event Withdrawal(address indexed receiver, uint256 amount);
+	event NewTraining(uint256 id, string name);
 
 	//--------------------------------------------------------------
+
+	mapping(address => bool) public members;
+
+	struct Training {
+		uint256 id;
+		string name;
+	}
+	Training[] public trainings;
+	uint256 private lastTrainingID = 0;
+
+	mapping(address => uint256[]) public performed;
 
 	//--------------------------------------------------------------
 
@@ -36,6 +48,13 @@ contract Controller is Ownable {
 
 	function getBalance() public view returns (uint256) {
 		return address(this).balance;
+	}
+
+	//--------------------------------------------------------------
+
+	function addTraining(string calldata name) external {
+		trainings.push(Training({ id: ++lastTrainingID, name: name }));
+		emit NewTraining(lastTrainingID, name);
 	}
 
 	//--------------------------------------------------------------
