@@ -27,12 +27,17 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/",
   },
   {
+    label: "Incentivo",
+    href: "/reward",
+    icon: <BanknotesIcon className="h-4 w-4" />,
+  },
+  {
     label: "Aporte",
     href: "/contribution",
     icon: <CurrencyDollarIcon className="h-4 w-4" />,
   },
   {
-    label: "Alta de Madre",
+    label: "Madre",
     href: "/mother",
     icon: <UserPlusIcon className="h-4 w-4" />,
   },
@@ -40,11 +45,6 @@ export const menuLinks: HeaderMenuLink[] = [
     label: "Aprobar",
     href: "/approve",
     icon: <CheckCircleIcon className="h-4 w-4" />,
-  },
-  {
-    label: "Incentivo",
-    href: "/reward",
-    icon: <BanknotesIcon className="h-4 w-4" />,
   },
   {
     label: "Debug",
