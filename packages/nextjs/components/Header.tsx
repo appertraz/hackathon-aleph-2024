@@ -37,12 +37,12 @@ export const menuLinks: HeaderMenuLink[] = [
     icon: <UserPlusIcon className="h-4 w-4" />,
   },
   {
-    label: "Validaciones",
-    href: "/validation",
+    label: "Aprobar",
+    href: "/approve",
     icon: <CheckCircleIcon className="h-4 w-4" />,
   },
   {
-    label: "Incentivos",
+    label: "Incentivo",
     href: "/reward",
     icon: <BanknotesIcon className="h-4 w-4" />,
   },

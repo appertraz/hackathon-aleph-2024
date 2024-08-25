@@ -13,7 +13,14 @@ const deployController: DeployFunction = async function (hre: HardhatRuntimeEnvi
     autoMine: true,
   });
 
-  await hre.ethers.getContract<Contract>("Controller", deployer);
+  const controller = await hre.ethers.getContract<Contract>("Controller", deployer);
+
+  // TODO: This should have an interface to be added
+  await controller.addTraining("Capacitación 1");
+  await controller.addTraining("Capacitación 2");
+  await controller.addTraining("Capacitación 3");
+  await controller.addTraining("Capacitación 4");
+  await controller.addTraining("Capacitación 5");
 };
 
 export default deployController;
