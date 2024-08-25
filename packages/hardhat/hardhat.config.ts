@@ -45,10 +45,10 @@ const config: HardhatUserConfig = {
         url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,
         enabled: process.env.MAINNET_FORKING_ENABLED === "true",
       },
-      mining: {
-        auto: false,
-        interval: 5000,
-      },
+      // mining: {
+      //   auto: false,
+      //   interval: 5000,
+      // },
     },
     mainnet: {
       url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,
