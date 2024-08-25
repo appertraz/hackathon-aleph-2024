@@ -20,7 +20,7 @@ const Home: NextPage = () => {
           </h1>
         </div>
 
-        <div className="flex flex-col justify-center items-center flex-grow max-w-lg mt-8 mb-32 px-16">
+        <div className="flex flex-col justify-center items-center flex-grow w-3/5 mt-8 mb-32 px-16">
           <p className="block tracking-wide text-grey-darker font-bold mb-2">Ingrese la cantidad de Matic a donar</p>
           <EtherInput value={amount} onChange={amount => setAmount(amount)} />
           <button
@@ -32,7 +32,7 @@ const Home: NextPage = () => {
                   value: parseEther(amount),
                 });
               } catch (e) {
-                console.error("Error setting greeting:", e);
+                console.error(e);
               }
             }}
           >
