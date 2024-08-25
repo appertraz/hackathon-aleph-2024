@@ -4,12 +4,6 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-//
-//
-// FIXME: Add `onlyOwner` to the necessary functions
-//
-//
-
 contract Controller is Ownable {
 	//--------------------------------------------------------------
 
@@ -34,9 +28,9 @@ contract Controller is Ownable {
 
 	mapping(address => uint256[]) public approved;
 
-	uint256 public reward = 0.1 * 1e18;
-	uint256 public minTrainingsForReward = 3;
-	uint256 public minTimeForWithdrawal = 30 seconds;
+	uint256 public reward;
+	uint256 public minTrainingsForReward;
+	uint256 public minTimeForWithdrawal;
 
 	mapping(address => uint256) public trainingCount;
 	mapping(address => uint256) public trainingTimestamp;
@@ -57,27 +51,23 @@ contract Controller is Ownable {
 		emit Deposit(msg.sender, msg.value);
 	}
 
-	function getBalance() public view returns (uint256) {
-		return address(this).balance;
-	}
-
 	//--------------------------------------------------------------
 
-	function setReward(uint256 amount) public {
+	function setReward(uint256 amount) public onlyOwner {
 		reward = amount;
 	}
 
-	function setMinTrainingsForReward(uint256 number) public {
+	function setMinTrainingsForReward(uint256 number) public onlyOwner {
 		minTrainingsForReward = number;
 	}
 
-	function setMinTimeForWithdrawal(uint256 time) public {
+	function setMinTimeForWithdrawal(uint256 time) public onlyOwner {
 		minTimeForWithdrawal = time;
 	}
 
 	//--------------------------------------------------------------
 
-	function addTraining(string calldata name) public {
+	function addTraining(string calldata name) public onlyOwner {
 		uint256 id = lastTrainingID++;
 		trainings.push(Training({ id: id, name: name }));
 		emit NewTraining(id, name);
@@ -85,14 +75,14 @@ contract Controller is Ownable {
 
 	//--------------------------------------------------------------
 
-	function addWoman(address wallet, string calldata proof) public {
+	function addWoman(address wallet, string calldata proof) public onlyOwner {
 		birthProof[wallet] = proof;
 		emit NewWoman(wallet);
 	}
 
 	//--------------------------------------------------------------
 
-	function approvedTraining(address wallet, uint256 id) public {
+	function approvedTraining(address wallet, uint256 id) public onlyOwner {
 		approved[wallet].push(id);
 
 		trainingCount[wallet]++;
@@ -111,6 +101,8 @@ contract Controller is Ownable {
 
 		// Checks
 
+		require(owner() != receiver, "Cannot withdraw to owner");
+
 		require(
 			trainingCount[receiver] >= minTrainingsForReward,
 			"Not enough trainings completed for reward"
@@ -123,10 +115,12 @@ contract Controller is Ownable {
 
 		require(address(this).balance >= reward, "Not enough funds in contract");
 
-		// Transfer
+		// Reset
 
 		trainingCount[receiver] = 0;
 		trainingTimestamp[receiver] = 0;
+
+		// Transfer
 
 		(bool success, ) = receiver.call{ value: reward }("");
 		require(success, "Transfer failed");

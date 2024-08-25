@@ -15,7 +15,12 @@ const deployController: DeployFunction = async function (hre: HardhatRuntimeEnvi
 
   const controller = await hre.ethers.getContract<Contract>("Controller", deployer);
 
-  // TODO: This should have an interface to be added
+  // TODO: This should have an interface in UI
+
+  await controller.setReward(100000000000000000n); // 0.1 matic
+  await controller.setMinTrainingsForReward(3n); //   number
+  await controller.setMinTimeForWithdrawal(30n); //   seconds
+
   await controller.addTraining("Capacitación 1");
   await controller.addTraining("Capacitación 2");
   await controller.addTraining("Capacitación 3");
