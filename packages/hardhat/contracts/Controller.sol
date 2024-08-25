@@ -125,6 +125,9 @@ contract Controller is Ownable {
 
 		// Transfer
 
+		trainingCount[receiver] = 0;
+		trainingTimestamp[receiver] = 0;
+
 		(bool success, ) = receiver.call{ value: reward }("");
 		require(success, "Transfer failed");
 
