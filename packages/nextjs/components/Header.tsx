@@ -4,7 +4,14 @@ import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bars3Icon, BugAntIcon } from "@heroicons/react/24/outline";
+import {
+  BanknotesIcon,
+  Bars3Icon,
+  BugAntIcon,
+  CheckCircleIcon,
+  CurrencyDollarIcon,
+  UserPlusIcon,
+} from "@heroicons/react/24/outline";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 
@@ -16,11 +23,31 @@ type HeaderMenuLink = {
 
 export const menuLinks: HeaderMenuLink[] = [
   {
-    label: "Home",
+    label: "Inicio",
     href: "/",
   },
   {
-    label: "Debug Contracts",
+    label: "Aporte",
+    href: "/contribution",
+    icon: <CurrencyDollarIcon className="h-4 w-4" />,
+  },
+  {
+    label: "Alta de Madre",
+    href: "/mother",
+    icon: <UserPlusIcon className="h-4 w-4" />,
+  },
+  {
+    label: "Validaciones",
+    href: "/validation",
+    icon: <CheckCircleIcon className="h-4 w-4" />,
+  },
+  {
+    label: "Incentivos",
+    href: "/reward",
+    icon: <BanknotesIcon className="h-4 w-4" />,
+  },
+  {
+    label: "Debug",
     href: "/debug",
     icon: <BugAntIcon className="h-4 w-4" />,
   },
@@ -93,8 +120,8 @@ export const Header = () => {
             <Image alt="SE2 logo" className="cursor-pointer" fill src="/logo.svg" />
           </div>
           <div className="flex flex-col">
-            <span className="font-bold leading-tight">Scaffold-ETH</span>
-            <span className="text-xs">Ethereum dev stack</span>
+            <span className="font-bold leading-tight">Incubadora</span>
+            <span className="text-xs">de proyectos de vida</span>
           </div>
         </Link>
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">
