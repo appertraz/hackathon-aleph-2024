@@ -6,7 +6,7 @@ Incubator of life projects, focused on mothers with children in early childhood
 
 The webapp can be found at the following link:
 
-https://legacy-nr12rk27e-schmidt-cristian-hernns-projects.vercel.app
+https://legacy-alpha.vercel.app
 
 The deployed and verified contract on Polygon Mainnet is available at the following link:
 
