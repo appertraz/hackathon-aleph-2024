@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 import {
   BanknotesIcon,
   Bars3Icon,
-  BugAntIcon,
   CheckCircleIcon,
   CurrencyDollarIcon,
   UserPlusIcon,
@@ -37,20 +36,20 @@ export const menuLinks: HeaderMenuLink[] = [
     icon: <CurrencyDollarIcon className="h-4 w-4" />,
   },
   {
-    label: "Madre",
+    label: "Madre (ADM)",
     href: "/mother",
     icon: <UserPlusIcon className="h-4 w-4" />,
   },
   {
-    label: "Aprobar",
+    label: "Aprobar (ADM)",
     href: "/approve",
     icon: <CheckCircleIcon className="h-4 w-4" />,
   },
-  {
-    label: "Debug",
-    href: "/debug",
-    icon: <BugAntIcon className="h-4 w-4" />,
-  },
+  // {
+  //   label: "Debug",
+  //   href: "/debug",
+  //   icon: <BugAntIcon className="h-4 w-4" />,
+  // },
 ];
 
 export const HeaderMenuLinks = () => {
@@ -120,8 +119,8 @@ export const Header = () => {
             <Image alt="SE2 logo" className="cursor-pointer" fill src="/logo.svg" />
           </div>
           <div className="flex flex-col">
-            <span className="font-bold leading-tight">Incubadora</span>
-            <span className="text-xs">de proyectos de vida</span>
+            <span className="font-bold leading-tight">LEGACY</span>
+            <span className="text-xs">Incubadora de proyectos de vida</span>
           </div>
         </Link>
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">

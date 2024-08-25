@@ -45,7 +45,7 @@ const Home: NextPage = () => {
       <div className="flex items-center flex-col flex-grow pt-10">
         <div className="px-5">
           <h1 className="text-center">
-            <span className="block text-6xl mb-3 font-bold">Nueva Madre</span>
+            <span className="block text-6xl mb-3 font-bold">Alumnas selecionadas</span>
             <span className="block text-2xl mb-3">Agregar una nueva madre al sistema</span>
           </h1>
         </div>
@@ -68,7 +68,7 @@ const Home: NextPage = () => {
               }
             }}
           >
-            {filename ? filename : "Elejir archivo"}
+            {filename ? filename : "Elegir archivo"}
           </button>
 
           <button

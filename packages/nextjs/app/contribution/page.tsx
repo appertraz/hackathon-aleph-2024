@@ -15,8 +15,12 @@ const Home: NextPage = () => {
       <div className="flex items-center flex-col flex-grow pt-10">
         <div className="px-5">
           <h1 className="text-center">
-            <span className="block text-6xl mb-3 font-bold">Donar</span>
-            <span className="block text-2xl mb-3">Su donación es importante para el futuro de la sociedad</span>
+            <span className="block text-6xl mb-3 font-bold">Aporte</span>
+            <p className="block text-2xl mb-3">
+              Con tu donación, no solamente recibís un NFT con beneficios,
+              <br />
+              sino que te también se convertís en un agente de cambio para las nuevas generaciones
+            </p>
           </h1>
         </div>
 

@@ -12,7 +12,7 @@ const Home: NextPage = () => {
         <div className="px-5">
           <h1 className="text-center">
             <span className="block text-6xl mb-3 font-bold">Incentivo</span>
-            <span className="block text-2xl mb-3">Con los objetivos cumplidos se puede reclamar el incentivo</span>
+            <span className="block text-2xl mb-3">Si cumpliste tus objetivos reclamá aquí tus incentivos</span>
           </h1>
         </div>
 
